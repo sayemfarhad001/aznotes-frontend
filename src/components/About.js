@@ -7,6 +7,7 @@ function About(props) {
 
     useEffect(()=>{
         a.update();
+        // eslint-disable-next-line
     }, [])
   
     return (
