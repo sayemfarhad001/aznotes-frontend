@@ -44,7 +44,7 @@ const AddNote = () => {
                     <input className="form-check-input" type="radio" value=""
                         onChange={onChange} name="tag" id="tagOff"/>
                 </div>
-                <button type="submit" className="btn btn-primary" onClick={handeSubmit}>Submit</button>
+                <button type="submit" className="btn btn-primary" onClick={handeSubmit}>Add note</button>
             </form>
 
 

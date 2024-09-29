@@ -9,9 +9,6 @@ import Alert from './Alert';
 
 function Navbar() {
     let location = useLocation();
-
-    useEffect(()=>{      
-    },[location])
     
     const context = useContext(noteContext);
     const {mode, toggleMode} = context;
