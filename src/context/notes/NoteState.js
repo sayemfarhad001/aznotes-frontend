@@ -2,6 +2,7 @@ import NoteContext from './noteContext';
 import React, {useState} from 'react'
 
 const NoteState = (props) => {
+    const host = "http://localhost:5000"
     const s1 = {
         "name": "Alpha",
         "class": "10C"
@@ -112,8 +113,19 @@ const NoteState = (props) => {
     const [notes, setNotes] = useState(sampleNotes);
 
     //   Add a note
-      const addNote = (title, description, tag) => {
-        // TODO API CALL
+      const addNote = async (title, description, tag) => {
+        // ADD API CALL
+        const url = `${host}/api/notes/addnote`
+        const response = await fetch(url,{
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+                "auth-token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZmNTkyMWI1MjliYmNlNDIwMDJiYTYyIn0sImlhdCI6MTcyNzM2OTc4N30.MF4NWwdwljLGUSbbTmGh_1Eixcvr5vdWXl1L1hWdJ30"
+            },
+            body: JSON.stringify({title, description, tag})
+        })
+        const json =  response.json();
+        
         const note =         {
             "_id": "96519d97d819d5eb5s2b15bcfada",
             "user": "66f5921b529bbce42002ba62",
@@ -134,8 +146,20 @@ const NoteState = (props) => {
     }
 
     // Edit a note
-    const editNote = (id, title, description, tag) => {
-        // TODO API CALL
+    const editNote = async (id, title, description, tag) => {
+        // EDIT API CALL
+        const url = `${host}/api/notes/updatenote/${id}`
+        const response = await fetch(url,{
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+                "auth-token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZmNTkyMWI1MjliYmNlNDIwMDJiYTYyIn0sImlhdCI6MTcyNzM2OTc4N30.MF4NWwdwljLGUSbbTmGh_1Eixcvr5vdWXl1L1hWdJ30"
+            },
+            body: JSON.stringify({title, description, tag})
+        })
+        const json =  response.json();
+
+        //Logic to edit in Frontend
         for (let i = 0; i<notes.length; i++){
             const note = notes[i];
             if(note._id === id){
