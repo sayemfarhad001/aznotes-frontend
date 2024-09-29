@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import noteContext from '../context/notes/noteContext'
 
-function About(props) {
+function About() {
   
     const a = useContext(noteContext);
 
@@ -11,7 +11,7 @@ function About(props) {
     }, [])
   
     return (
-        <div className={`text-${props.mode==='light'?'dark':'light'}`} style={{marginTop:"100px"}}>
+        <div className={`text-${a.mode==='light'?'dark':'light'}`} style={{marginTop:"100px"}}>
             <strong>This is About {a.state.name} from {a.state.class}</strong>
         </div>
      )

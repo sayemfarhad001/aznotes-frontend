@@ -1,18 +1,28 @@
-import React,{ useEffect } from 'react'
+import React,{ useEffect, useContext } from 'react'
+
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types'
 
+import noteContext from '../context/notes/noteContext';
 
+import Alert from './Alert';
 
-function Navbar(props) {
+function Navbar() {
     let location = useLocation();
 
     useEffect(()=>{      
     },[location])
     
+    const context = useContext(noteContext);
+    const {mode, toggleMode} = context;
+
+    const handleClick = () => {
+        toggleMode();
+    }
+
     return (
     <div>
-      <nav className={`navbar fixed-top navbar-expand-lg navbar-${props.mode} bg-${props.mode} text-${props.mode==='light'?'dark':'light'}`}>
+      <nav className={`navbar fixed-top navbar-expand-lg navbar-${mode} bg-${mode} text-${mode==='light'?'dark':'light'}`}>
             <div className="container-fluid fs-4">
                 <Link className="navbar-brand" to="/">
                     <div className='d-flex'>
@@ -32,12 +42,13 @@ function Navbar(props) {
                     </ul>
                 </div>
 
-                <div className={`fs-5 form-check form-switch text-${props.mode==='light'?'dark':'light'} mx-3`}>
-                    <input className="form-check-input" onClick={()=>{props.toggleMode(null)}} type="checkbox" role="switch" id="flexSwitchCheckDefault"/>
-                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">{props.mode==='light'?"Enable Dark Mode":"Enable Light Mode"}</label>
+                <div className={`fs-5 form-check form-switch text-${mode==='light'?'dark':'light'} mx-3`}>
+                    <input className="form-check-input" onClick={handleClick} type="checkbox" role="switch" id="flexSwitchCheckDefault"/>
+                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">{mode==='light'?"Enable Dark Mode":"Enable Light Mode"}</label>
                 </div>
             </div>
         </nav>
+        <Alert/>
     </div>
   )
 }
