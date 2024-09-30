@@ -131,7 +131,8 @@ const NoteState = (props) => {
 
         // parses the json
         const json = await response.json();
-        console.log(json);
+        
+        //UPDATE IN UI
         setNotes(json);
     }
 
@@ -149,17 +150,22 @@ const NoteState = (props) => {
             body: JSON.stringify({title, description, tag})
         })
         const json = await response.json();
+
+        // const note =         {
+        //     "_id": "96519d97d819d5eb5s2b15bcfada",
+        //     "user": "66f5921b529bbce42002ba62",
+        //     "title": title,
+        //     "description": description,
+        //     "tag": tag,
+        //     "date": "2024-09-26T17:55:55.408Z",
+        //     "__v": 0
+        // }
+        // setNotes(notes.concat(note));
         
-        const note =         {
-            "_id": "96519d97d819d5eb5s2b15bcfada",
-            "user": "66f5921b529bbce42002ba62",
-            "title": title,
-            "description": description,
-            "tag": tag,
-            "date": "2024-09-26T17:55:55.408Z",
-            "__v": 0
-        }
-        setNotes(notes.concat(note));
+        //UPDATE IN UI
+        let newNotes = JSON.parse(JSON.stringify(notes));
+        setNotes(newNotes.concat(json));
+
     }
 
     // Delete a note
@@ -175,9 +181,8 @@ const NoteState = (props) => {
             }
         })
         const json = await response.json();
-        console.log(json)
 
-
+        //UPDATE IN UI
         const newNotes = notes.filter((note)=> {return note._id !== id})
         setNotes(newNotes);
     }
@@ -187,7 +192,7 @@ const NoteState = (props) => {
         // API CALL
         const url = `${host}/api/notes/updatenote/${id}`
         const response = await fetch(url,{
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type" : "application/json",
                 "auth-token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZmNTkyMWI1MjliYmNlNDIwMDJiYTYyIn0sImlhdCI6MTcyNzM2OTc4N30.MF4NWwdwljLGUSbbTmGh_1Eixcvr5vdWXl1L1hWdJ30"
@@ -196,15 +201,17 @@ const NoteState = (props) => {
         })
         const json =  response.json();
 
-        //Logic to edit in Frontend
-        for (let i = 0; i<notes.length; i++){
-            const note = notes[i];
-            if(note._id === id){
-                note.title = title;
-                note.description = description;
-                note.tag = tag;
+        //UPDATE IN UI  
+        let newNotes = JSON.parse(JSON.stringify(notes))
+        for (let i = 0; i<newNotes.length; i++){
+            if (newNotes[i]._id === id) {
+                newNotes[i].title = title;
+                newNotes[i].description = description;
+                newNotes[i].tag = tag;
+                break;
             }
         }
+        setNotes(newNotes);
     }
 
     return (
