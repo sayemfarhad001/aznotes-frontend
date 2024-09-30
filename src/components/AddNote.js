@@ -41,7 +41,7 @@ const AddNote = () => {
                 </div>
                 <div className="form-check mb-3">
                     <label className="form-check-label" htmlFor="tagOff">Not Important</label>
-                    <input className="form-check-input" type="radio" value=""
+                    <input className="form-check-input" type="radio" value="regular"
                         onChange={onChange} name="tag" id="tagOff"/>
                 </div>
                 <button type="submit" className="btn btn-primary" onClick={handeSubmit}>Add note</button>
