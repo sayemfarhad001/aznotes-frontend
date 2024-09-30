@@ -18,7 +18,6 @@ const Notes = () => {
         setNote({id:currentNote._id, etitle:currentNote.title, edescription:currentNote.description, etag:currentNote.tag })
     }
 
-    
     // MODAL CODE START
     const refEdit = useRef(null);
     const refClose = useRef(null);
@@ -27,20 +26,24 @@ const Notes = () => {
 
     const handleClick = (e) => {
         // e.preventDefault();      //Not needed as it is outside the <form>
-        console.log("Updating the note...", note)
         editNote(note.id,note.etitle, note.edescription, note.etag);
-        
         refClose.current.click();
     }
 
     const onChange = (e) => {
-        if (e.target.name==="etag"){
-
-
+        if(e.target.name==="etag"){
+            e.target.value = toggleCheckbox(e.target.value);
         }
         setNote({...note, [e.target.name]: e.target.value})
+    }
 
-
+    const toggleCheckbox = (value) => {
+        if (value==="important") {
+            value =  "regular";
+        } else {
+            value = "important"
+        }
+        return value
     }
     // MODAL CODE END
 
@@ -64,21 +67,22 @@ const Notes = () => {
                                 <div className="mb-3">
                                     <label htmlFor="etitle" className="form-label">Title</label>
                                     <input type="text" className="form-control" value={note.etitle}
-                                        onChange={onChange} name="etitle" id="etitle"aria-describedby="emailHelp" />
+                                        onChange={onChange} name="etitle" id="etitle"aria-describedby="emailHelp" 
+                                        required minLength={5}/>
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="edescription" className="form-label">Description</label>
                                     <input type="text" className="form-control" value={note.edescription}
-                                        onChange={onChange} name="edescription" id="edescription" />
+                                        onChange={onChange} name="edescription" id="edescription" 
+                                        required minLength={5}/>
                                 </div>
-                                {/* TAG RADIO BUTTON START */}
-                                {/* <div className="mb-3">
-                                    <label htmlFor="etag" className="form-label">Tag</label>
-                                    <input type="text" className="form-control" value={note.tag}
-                                        onChange={onChange} name="etag" id="etag" />
-                                </div> */}
-
+                                {/* TAG CHECKBOX START */}
                                 <div className="form-check mb-3">
+                                    <label className="form-check-label" htmlFor="etag">Important</label>
+                                    <input className="form-check-input" type="checkbox"
+                                        onChange={onChange} name="etag" id="etag"/>
+                                </div>
+                                {/* <div className="form-check mb-3">
                                     <label className="form-check-label" htmlFor="etagOn">Important</label>
                                     <input className="form-check-input" type="radio" 
                                         value="important"
@@ -93,15 +97,17 @@ const Notes = () => {
                                         onChange={onChange} name="etag" id="etagOff"
                                         checked={note.etag==="regular" ? true : false} 
                                         />
-                                </div>
-                                {/* TAG RADIO BUTTON END */}
+                                </div> */}
+                                {/* TAG CHECKBOX END */}
 
                                 {/* <button type="submit" className="btn btn-primary" onClick={handeSubmit}>Add note</button> */}
                             </form>
                         </div>
                         <div className="modal-footer">
                             <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" onClick={handleClick} className="btn btn-primary">Submit Changes</button>
+                            <button disabled={note.etitle.length<5 || note.edescription.length<5} type="button" 
+                                onClick={handleClick} className="btn btn-primary">Submit Changes
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -110,6 +116,9 @@ const Notes = () => {
 
             <div className="row my-4">
                 <h2>Your notes:</h2>
+                <div className="container fw-bold">
+                    {notes.length===0 ? "No notes to display!" : `Total notes : ${notes.length}`}
+                </div>
                 {notes.map((note) => {
                     return <NoteItem key={note._id} note={note} updateNote={updateNote}/>
                 })}
