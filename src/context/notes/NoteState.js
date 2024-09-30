@@ -2,7 +2,7 @@ import NoteContext from './noteContext';
 import React, {useState} from 'react'
 
 const NoteState = (props) => {
-    const host = "http://localhost:5000"
+    //CONTEXT STATE - ABOUT PAGE
     const s1 = {
         "name": "Alpha",
         "class": "10C"
@@ -19,32 +19,36 @@ const NoteState = (props) => {
         }, 1000)
     }
 
+    //CONTEXT ALERT - NAVBAR
     const [alert, setAlert] = useState(null);
 
     const showAlert = (message, type)=>{
-      setAlert({
-        msg: message,
-        type: type
-      })
-      setTimeout(()=>{
-        setAlert(null);  
-      }, 1500)
+        setAlert({
+            msg: message,
+            type: type
+        })
+        setTimeout(()=>{
+            setAlert(null);  
+        }, 1500)
     }
 
+    //CONTEXT MODE - NAVBAR, APP
     const [mode, setMode] = useState('light');
   
     const toggleMode = ()=>{
-      if(mode === 'light'){
-        setMode('dark')
-        document.body.style.backgroundColor = '#042743';
-        showAlert('Dark mode activated!', 'success');
-      } else {
-        setMode('light')
-        document.body.style.backgroundColor = 'white';
-        showAlert('Dark mode deactivated!', 'warning');
-      }
+        if(mode === 'light'){
+            setMode('dark')
+            document.body.style.backgroundColor = '#042743';
+            showAlert('Dark mode activated!', 'success');
+        } else {
+            setMode('light')
+            document.body.style.backgroundColor = 'white';
+            showAlert('Dark mode deactivated!', 'warning');
+        }
     }
 
+    //CRUD
+    const host = "http://localhost:5000"
     const sampleNotes = [
         {
           "_id": "66f59d97d819d5eb52b15bcf",
@@ -110,11 +114,31 @@ const NoteState = (props) => {
             "__v": 0
         }
       ]
-    const [notes, setNotes] = useState(sampleNotes);
+    const initialNotes = [];  
+    const [notes, setNotes] = useState(initialNotes);
 
-    //   Add a note
-      const addNote = async (title, description, tag) => {
-        // ADD API CALL
+    // Get all notes
+    const getNotes = async () => {
+        // API CALL
+        const url = `${host}/api/notes/getnotes`
+        const response = await fetch(url,{
+            method: "GET",
+            headers: {
+                "Content-Type" : "application/json",
+                "auth-token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZmNTkyMWI1MjliYmNlNDIwMDJiYTYyIn0sImlhdCI6MTcyNzM2OTc4N30.MF4NWwdwljLGUSbbTmGh_1Eixcvr5vdWXl1L1hWdJ30"
+            }
+        })
+
+        // parses the json
+        const json = await response.json();
+        console.log(json);
+        setNotes(json);
+    }
+
+
+    // Add a note
+    const addNote = async (title, description, tag) => {
+        // API CALL
         const url = `${host}/api/notes/addnote`
         const response = await fetch(url,{
             method: "POST",
@@ -124,7 +148,7 @@ const NoteState = (props) => {
             },
             body: JSON.stringify({title, description, tag})
         })
-        const json =  response.json();
+        const json = await response.json();
         
         const note =         {
             "_id": "96519d97d819d5eb5s2b15bcfada",
@@ -136,18 +160,18 @@ const NoteState = (props) => {
             "__v": 0
         }
         setNotes(notes.concat(note));
-      }
+    }
 
     // Delete a note
     const deleteNote = (id) => {
-        // TODO API CALL
+        // API CALL
         const newNotes = notes.filter((note)=> {return note._id !== id})
         setNotes(newNotes);
     }
 
     // Edit a note
     const editNote = async (id, title, description, tag) => {
-        // EDIT API CALL
+        // API CALL
         const url = `${host}/api/notes/updatenote/${id}`
         const response = await fetch(url,{
             method: "POST",
@@ -172,7 +196,7 @@ const NoteState = (props) => {
 
     return (
         <NoteContext.Provider value={{
-                state, update, notes, addNote, deleteNote, editNote, 
+                state, update, notes, getNotes, addNote, deleteNote, editNote, 
                 alert, mode, toggleMode
             }}>
             {props.children}
