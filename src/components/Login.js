@@ -29,9 +29,9 @@ const Login = () => {
         })
         const json = await response.json();
         if(json.success){
-            //Save token & redirect
-            showAlert('Logged in successfully!', 'success');
+            //Save token, show Alert & redirect
             localStorage.setItem('token', json.authToken);
+            showAlert('Logged in successfully!', 'success');
             navigate('/');
         } else {
             showAlert('Invalid Credentials!', 'danger');

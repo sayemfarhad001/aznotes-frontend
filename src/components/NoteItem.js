@@ -7,8 +7,6 @@ const NoteItem = (props) => {
     const context = useContext(noteContext);
     const { showAlert, deleteNote } = context;
 
-    
-
   return (
     <div className="col-md-3 my-3">
         <div className="card">

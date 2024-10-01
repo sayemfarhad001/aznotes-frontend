@@ -34,8 +34,8 @@ const SignUp = () => {
         // NO NEED TO CHECK WRONG CREDS HERE
         if(json.success){
             //Save token & redirect
-            showAlert('Account created successfully!', 'success');
             localStorage.setItem('token', json.authToken);
+            showAlert('Account created successfully!', 'success');
             navigate('/');
         } else {
             showAlert('Invalid Credentials!', 'danger');
