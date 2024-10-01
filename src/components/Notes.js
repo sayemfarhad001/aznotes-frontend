@@ -80,27 +80,10 @@ const Notes = () => {
                                 <div className="form-check mb-3">
                                     <label className="form-check-label" htmlFor="etag">Important</label>
                                     <input className="form-check-input" type="checkbox"
-                                        onChange={onChange} name="etag" id="etag"/>
+                                        onChange={onChange} name="etag" id="etag"
+                                        checked={note.etag==="important" ? true : false} />
                                 </div>
-                                {/* <div className="form-check mb-3">
-                                    <label className="form-check-label" htmlFor="etagOn">Important</label>
-                                    <input className="form-check-input" type="radio" 
-                                        value="important"
-                                        onChange={onChange} name="etag" id="etagOn"
-                                        checked={note.etag==="important" ? true : false} 
-                                        />
-                                </div>
-                                <div className="form-check mb-3">
-                                    <label className="form-check-label" htmlFor="etagOff">Not Important</label>
-                                    <input className="form-check-input" type="radio" 
-                                        value="regular"
-                                        onChange={onChange} name="etag" id="etagOff"
-                                        checked={note.etag==="regular" ? true : false} 
-                                        />
-                                </div> */}
                                 {/* TAG CHECKBOX END */}
-
-                                {/* <button type="submit" className="btn btn-primary" onClick={handeSubmit}>Add note</button> */}
                             </form>
                         </div>
                         <div className="modal-footer">

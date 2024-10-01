@@ -9,9 +9,10 @@ const AddNote = () => {
     const [note, setNote] = useState({ title:"", description:"", tag:"regular" })
 
     // FORM CODE START
-    const handeSubmit = (e) => {
+    const handeClick = (e) => {
         e.preventDefault();
         addNote(note.title, note.description, note.tag);
+        setNote({ title:"", description:"", tag:"regular" });
     }
 
     const onChange = (e) => {
@@ -34,35 +35,30 @@ const AddNote = () => {
 
     return (
         <div style={{ marginTop: "10px" }}>
-
             <h2>Add a Note:</h2>
 
             <form className="my-3">
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>
-                    <input type="text" className="form-control" 
+                    <input type="text" className="form-control" value={note.title}
                         onChange={onChange} name="title" id="title" 
                         aria-describedby="emailHelp" required minLength={5}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label">Description</label>
-                    <input type="text" className="form-control" 
+                    <input type="text" className="form-control" value={note.description}
                         onChange={onChange} name="description" id="description" required minLength={5}/>
                 </div>
                 <div className="form-check mb-3">
                     <label className="form-check-label" htmlFor="tag">Important</label>
                     <input className="form-check-input" type="checkbox"
-                        onChange={onChange} name="tag" id="tag"/>
+                        onChange={onChange} name="tag" id="tag" 
+                        checked={note.tag==="important" ? true : false} 
+                        />
                 </div>
-                {/* <div className="form-check mb-3">
-                    <label className="form-check-label" htmlFor="tagOff">Not Important</label>
-                    <input className="form-check-input" type="radio" value="regular"
-                        onChange={onChange} name="tag" id="tagOff"/>
-                </div> */}
-                <button disabled={note.title.length<5 || note.description.length<5} type="submit" className="btn btn-primary" onClick={handeSubmit}>Add note</button>
+                <button disabled={note.title.length<5 || note.description.length<5} type="submit" 
+                    className="btn btn-primary" onClick={handeClick}>Add note</button>
             </form>
-
-
         </div>
     )
 }

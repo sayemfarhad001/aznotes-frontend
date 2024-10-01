@@ -149,7 +149,7 @@ const NoteState = (props) => {
             },
             body: JSON.stringify({title, description, tag})
         })
-        const json = await response.json();
+        const note = await response.json();
 
         // const note =         {
         //     "_id": "96519d97d819d5eb5s2b15bcfada",
@@ -164,7 +164,7 @@ const NoteState = (props) => {
         
         //UPDATE IN UI
         let newNotes = JSON.parse(JSON.stringify(notes));
-        setNotes(newNotes.concat(json));
+        setNotes(newNotes.concat(note));
 
     }
 
