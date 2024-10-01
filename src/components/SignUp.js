@@ -42,11 +42,11 @@ const SignUp = () => {
         }
     }
 
-
     return (
         <div className="container">
+                        <h2>Create an account to use azNotes</h2>
             <form onSubmit={handleSubmit}>
-                <div className="mb-3">
+                <div className="my-3">
                     <label htmlFor="name" className="form-label">Name</label>
                     <input type="name" className="form-control" id="name" name="name"
                         onChange={onChange} value={credentials.name} />

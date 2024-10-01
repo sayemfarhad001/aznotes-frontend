@@ -8,6 +8,8 @@ function Home() {
     const context = useContext(noteContext);
     const {mode} = context;
 
+    
+
     return (
         <div className={`container my-3 text-${mode === 'light' ? 'dark' : 'light'}`} >
             <Notes/>

@@ -1,6 +1,6 @@
 import React,{ useEffect, useContext } from 'react'
 
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types'
 
 import noteContext from '../context/notes/noteContext';
@@ -9,12 +9,18 @@ import Alert from './Alert';
 
 function Navbar() {
     let location = useLocation();
-    
+    let navigate = useNavigate();
+
     const context = useContext(noteContext);
     const {mode, toggleMode} = context;
 
-    const handleClick = () => {
+    const handleToggle = () => {
         toggleMode();
+    }
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
     }
 
     return (
@@ -40,14 +46,16 @@ function Navbar() {
                 </div>
 
                 <div className={`fs-5 form-check form-switch text-${mode==='light'?'dark':'light'} mx-3`}>
-                    <input className="form-check-input" onClick={handleClick} type="checkbox" role="switch" id="flexSwitchCheckDefault"/>
+                    <input className="form-check-input" onClick={handleToggle} type="checkbox" role="switch" id="flexSwitchCheckDefault"/>
                     <label className="form-check-label" htmlFor="flexSwitchCheckDefault">{mode==='light'?"Enable Dark Mode":"Enable Light Mode"}</label>
                 </div>
 
-                <form className="d-flex">
+                { localStorage.getItem('token') 
+                ? <button className="btn btn-primary" onClick={handleLogout}>Logout</button>
+                : <form className="d-flex">
                     <Link className="btn btn-primary mx-2" to="/login" role="button">Login</Link>
                     <Link className="btn btn-primary mx-2" to="/signup" role="button">Sign Up</Link>
-                </form>
+                </form>}
             </div>
         </nav>
         <Alert/>

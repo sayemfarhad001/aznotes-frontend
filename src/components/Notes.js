@@ -15,7 +15,7 @@ const Notes = () => {
         if (localStorage.getItem('token')){
             getNotes();
         } else {
-            navigate('/');
+            navigate('/login');
         }
         // eslint-disable-next-line
     },[])
