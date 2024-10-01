@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import noteContext from '../context/notes/noteContext';
 
 const SignUp = () => {
+
+    // CONTEXT FOR ALERT ONLY
+    const context = useContext(noteContext);
+    const { showAlert } = context;
+    // CONTEXT FOR ALERT ONLY
 
     let navigate = useNavigate();
     const [credentials, setCredentials] = useState({name:"", email: "", password: "", cpassword: ""})
@@ -28,10 +34,11 @@ const SignUp = () => {
         // NO NEED TO CHECK WRONG CREDS HERE
         if(json.success){
             //Save token & redirect
+            showAlert('Account created successfully!', 'success');
             localStorage.setItem('token', json.authToken);
             navigate('/');
         } else {
-            alert("invalid creds")
+            showAlert('Invalid Credentials!', 'danger');
         }
     }
 

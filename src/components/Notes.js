@@ -6,7 +6,7 @@ import NoteItem from './NoteItem';
 const Notes = () => {
 
     const context = useContext(noteContext);
-    const {notes, getNotes, editNote} = context;
+    const {showAlert, notes, getNotes, editNote} = context;
 
     useEffect(()=>{
         getNotes();
@@ -28,6 +28,7 @@ const Notes = () => {
         // e.preventDefault();      //Not needed as it is outside the <form>
         editNote(note.id,note.etitle, note.edescription, note.etag);
         refClose.current.click();
+        showAlert('Updated successfully!', 'success');
     }
 
     const onChange = (e) => {

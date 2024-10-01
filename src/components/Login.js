@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import noteContext from '../context/notes/noteContext';
 
 const Login = () => {
+    // CONTEXT FOR ALERT ONLY
+    const context = useContext(noteContext);
+    const { showAlert } = context;
+    // CONTEXT FOR ALERT ONLY
+
     let navigate = useNavigate();
     const [credentials, setCredentials] = useState({email: "", password: ""})
 
@@ -24,10 +30,11 @@ const Login = () => {
         const json = await response.json();
         if(json.success){
             //Save token & redirect
+            showAlert('Logged in successfully!', 'success');
             localStorage.setItem('token', json.authToken);
             navigate('/');
         } else {
-            alert("invalid creds")
+            showAlert('Invalid Credentials!', 'danger');
         }
     }
 
