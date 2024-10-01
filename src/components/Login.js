@@ -40,7 +40,7 @@ const Login = () => {
 
 
     return (
-        <div>
+        <div className="my-3">
             <h2>Login to continue to azNotes</h2>
             <form onSubmit={handleSubmit}>
                 <div className="my-3">
@@ -54,7 +54,7 @@ const Login = () => {
                         onChange={onChange} value={credentials.password}/>
                 </div>
 
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">Login</button>
             </form>
         </div>
     )

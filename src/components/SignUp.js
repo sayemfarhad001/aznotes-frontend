@@ -43,7 +43,7 @@ const SignUp = () => {
     }
 
     return (
-        <div className="container">
+        <div className="container my-3">
                         <h2>Create an account to use azNotes</h2>
             <form onSubmit={handleSubmit}>
                 <div className="my-3">
@@ -71,7 +71,7 @@ const SignUp = () => {
                         required minLength={5}/>
                 </div>
 
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary">Sign Up</button>
             </form>
         </div>
     )
