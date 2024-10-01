@@ -8,6 +8,8 @@ import NoteState from './context/notes/NoteState';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
 
 function App() {
   // const context = useContext(noteContext);
@@ -39,13 +41,8 @@ function App() {
             <Routes>
               <Route exact path="/" element={<Home key="home" category="home"/>}/>
               <Route path="/about" element={<About key="about" category="about"/>}/>
-              {/* <Route path="/business" element={<News setProgress={setProgress} key="business" pageSize={pageSize} apiKey={apiKey} category="business" mode={mode}/>}/>
-              <Route path="/entertainment" element={<News setProgress={setProgress} key="entertainment" pageSize={pageSize} apiKey={apiKey} category="entertainment" mode={mode}/>}/>
-              <Route path="/health" element={<News setProgress={setProgress} key="health" pageSize={pageSize} apiKey={apiKey} category="health" mode={mode}/>}/>
-              <Route path="/science" element={<News setProgress={setProgress} key="science" pageSize={pageSize} apiKey={apiKey} category="science" mode={mode}/>}/>
-              <Route path="/sports" element={<News setProgress={setProgress} key="sports" pageSize={pageSize} apiKey={apiKey} category="sports" mode={mode}/>}/>
-              <Route path="/technology" element={<News setProgress={setProgress} key="technology" pageSize={pageSize} apiKey={apiKey} category="technology" mode={mode}/>}/>
-              <Route path="/about" element={<About setProgress={setProgress} key="about" category="about" mode={mode}/>}/>  */}
+              <Route path="/login" element={<Login key="login" category="login"/>}/>
+              <Route path="/signup" element={<SignUp key="signup" category="signup"/>}/>
             </Routes> 
           </div>
         </Router>

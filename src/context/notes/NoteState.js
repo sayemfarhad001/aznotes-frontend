@@ -48,7 +48,7 @@ const NoteState = (props) => {
     }
 
     //CRUD
-    const host = "http://localhost:5000"
+    const base_url = process.env.REACT_APP_BASE_URL;
     const sampleNotes = [
         {
           "_id": "66f59d97d819d5eb52b15bcf",
@@ -120,7 +120,7 @@ const NoteState = (props) => {
     // Get all notes
     const getNotes = async () => {
         // API CALL
-        const url = `${host}/api/notes/getnotes`
+        const url = `${base_url}/api/notes/getnotes`
         const response = await fetch(url,{
             method: "GET",
             headers: {
@@ -140,7 +140,7 @@ const NoteState = (props) => {
     // Add a note
     const addNote = async (title, description, tag) => {
         // API CALL
-        const url = `${host}/api/notes/addnote`
+        const url = `${base_url}/api/notes/addnote`
         const response = await fetch(url,{
             method: "POST",
             headers: {
@@ -165,14 +165,13 @@ const NoteState = (props) => {
         //UPDATE IN UI
         let newNotes = JSON.parse(JSON.stringify(notes));
         setNotes(newNotes.concat(note));
-
     }
 
     // Delete a note
     const deleteNote = async (id) => {
 
         // API CALL
-        const url = `${host}/api/notes/deletenote/${id}`
+        const url = `${base_url}/api/notes/deletenote/${id}`
         const response = await fetch(url,{
             method: "DELETE",
             headers: {
@@ -190,7 +189,7 @@ const NoteState = (props) => {
     // Edit a note
     const editNote = async (id, title, description, tag) => {
         // API CALL
-        const url = `${host}/api/notes/updatenote/${id}`
+        const url = `${base_url}/api/notes/updatenote/${id}`
         const response = await fetch(url,{
             method: "PUT",
             headers: {

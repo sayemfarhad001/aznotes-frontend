@@ -43,6 +43,11 @@ function Navbar() {
                     <input className="form-check-input" onClick={handleClick} type="checkbox" role="switch" id="flexSwitchCheckDefault"/>
                     <label className="form-check-label" htmlFor="flexSwitchCheckDefault">{mode==='light'?"Enable Dark Mode":"Enable Light Mode"}</label>
                 </div>
+
+                <form className="d-flex">
+                    <Link className="btn btn-primary mx-2" to="/login" role="button">Login</Link>
+                    <Link className="btn btn-primary mx-2" to="/signup" role="button">Sign Up</Link>
+                </form>
             </div>
         </nav>
         <Alert/>
